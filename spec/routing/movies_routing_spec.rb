@@ -14,6 +14,10 @@ RSpec.describe Api::V1::MoviesController, type: :routing do
       expect(post: "api/v1/movies").to route_to("api/v1/movies#create", format: :json)
     end
 
+    it "routes to #import" do
+      expect(post: "api/v1/movies/import").to route_to("api/v1/movies#import", format: :json)
+    end
+
     it "routes to #update via PUT" do
       expect(put: "api/v1/movies/1").to route_to("api/v1/movies#update", id: "1", format: :json)
     end

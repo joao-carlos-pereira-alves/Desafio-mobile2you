@@ -40,7 +40,9 @@ module Api
           render json: @movie.errors, status: :unprocessable_entity
         end
       end
-
+    
+      # POST/movies/import
+      # POST /movies/import.json
       def import
         file_path =        Rails.root.join('db', 'netflix_titles.csv')
         file =             File.read(file_path)

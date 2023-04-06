@@ -1,7 +1,7 @@
 class Movie < ApplicationRecord
   default_scope { order(release_year: :asc) }
 
-  validates :title, uniqueness: true
+  validates :title, uniqueness: true, presence: true
 
   def self.filter(params, movies = Movie.all)
     filter_params = [

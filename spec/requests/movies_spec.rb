@@ -12,16 +12,40 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/movies", type: :request do
+RSpec.describe "api/v1/movies", type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Movie. As you add validations to Movie, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      gender: "gender",
+      title: "title",
+      director: "director",
+      cast: "cast",
+      country: "country",
+      date_added: "date_added",
+      release_year: "release_year",
+      rating: "rating",
+      duration: "duration",
+      listed_in: "listed_in",
+      description: "description"
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      title: nil,
+      gender: nil,
+      release_year: nil,
+      country: nil,
+      director: nil,
+      duration: nil,
+      rating: nil,
+      date_added: nil,
+      description: nil,
+      listed_in: nil,
+      cast: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the headers
@@ -37,6 +61,17 @@ RSpec.describe "/movies", type: :request do
       Movie.create! valid_attributes
       get api_v1_movies_url, headers: valid_headers, as: :json
       expect(response).to be_successful
+    end
+
+    it "returns the correct movies" do
+      movies = FactoryBot.create_list(:movie, 3)
+      get api_v1_movies_url, headers: valid_headers, as: :json
+      expect(response).to be_successful
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response.size).to eq(3)
+      expect(parsed_response[0]['title']).to eq(movies[0].title)
+      expect(parsed_response[1]['title']).to eq(movies[1].title)
+      expect(parsed_response[2]['title']).to eq(movies[2].title)
     end
   end
 
@@ -61,7 +96,7 @@ RSpec.describe "/movies", type: :request do
         post api_v1_movies_url,
              params: { movie: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
-        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(response.content_type).to match(a_string_including("application/json; charset=utf-8"))
       end
     end
 
@@ -77,7 +112,7 @@ RSpec.describe "/movies", type: :request do
         post api_v1_movies_url,
              params: { movie: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq("application/json")
+        expect(response.content_type).to eq("application/json; charset=utf-8")
       end
     end
   end
@@ -85,7 +120,19 @@ RSpec.describe "/movies", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          gender: "gender 2",
+          title: "title 2",
+          director: "director 2",
+          cast: "cast 2",
+          country: "country 2",
+          date_added: "date_added 2",
+          release_year: "release_year 2",
+          rating: "rating 2",
+          duration: "duration 2",
+          listed_in: "listed_in 2",
+          description: "description 2"
+        }
       }
 
       it "updates the requested movie" do
@@ -93,7 +140,8 @@ RSpec.describe "/movies", type: :request do
         patch api_v1_movie_url(movie),
               params: { movie: new_attributes }, headers: valid_headers, as: :json
         movie.reload
-        skip("Add assertions for updated state")
+        expect(movie.title).to eq(new_attributes[:title])
+        expect(movie.description).to eq(new_attributes[:description])
       end
 
       it "renders a JSON response with the movie" do
@@ -101,7 +149,7 @@ RSpec.describe "/movies", type: :request do
         patch api_v1_movie_url(movie),
               params: { movie: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
-        expect(response.content_type).to match(a_string_including("application/json"))
+        expect(response.content_type).to match(a_string_including("application/json; charset=utf-8"))
       end
     end
 
@@ -111,7 +159,7 @@ RSpec.describe "/movies", type: :request do
         patch api_v1_movie_url(movie),
               params: { movie: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to eq("application/json")
+        expect(response.content_type).to eq("application/json; charset=utf-8")
       end
     end
   end
@@ -122,6 +170,16 @@ RSpec.describe "/movies", type: :request do
       expect {
         delete api_v1_movie_url(movie), headers: valid_headers, as: :json
       }.to change(Movie, :count).by(-1)
+    end
+  end
+
+  describe "POST /import" do
+    context "Importing movies via CSV" do
+      it "movies must exist" do
+        expect {
+          post api_v1_movies_import_url, as: :json
+        }.to change(Movie, :count).by(131)
+      end
     end
   end
 end

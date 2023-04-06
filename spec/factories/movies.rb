@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :movie do
-    title { Faker::Lorem.word }
+    title { Faker::Lorem.unique.word }
     gender { "MyString" }
     release_year { "MyString" }
     country { "MyString" }
