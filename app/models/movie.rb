@@ -1,6 +1,8 @@
 class Movie < ApplicationRecord
   default_scope { order(release_year: :asc) }
 
+  validates :title, uniqueness: true
+
   def self.filter(params, movies = Movie.all)
     filter_params = [
       [:title, ->(value) { ["title ILIKE ?", "%#{value}%"] }],
