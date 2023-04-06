@@ -10,6 +10,7 @@ module Api
       # GET /movies.json
       def index
         @movies = Movie.all
+        @movies = Movie.filter(params, @movies) if filter_params_present?
       end
 
       # GET /movies/1
@@ -73,6 +74,13 @@ module Api
           params.require(:movie).permit(:title, :gender, :release_year, :country, :director, 
                                         :duration, :rating, :date_added, :description, 
                                         :listed_in, :cast, :updated_at)
+        end
+
+        def filter_params_present?
+          params.slice(:title, :gender, :year, :country, :director, 
+                       :duration, :rating, :published_at, :description, 
+                       :listed_in, :cast, :updated_at
+                      ).values.compact.any?
         end
     end
   end
