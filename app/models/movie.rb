@@ -12,7 +12,7 @@ class Movie < ApplicationRecord
       [:duration, ->(value) { ["duration ILIKE ?", "%#{value}%"] }],
       [:rating, ->(value) { ["rating ILIKE ?", "%#{value}%"] }],
       [:published_at, ->(value) { ["date_added = ?", clean_date(value) ] }],
-      [:year, ->(value) { ["release_year = ?", value] }],
+      [:year, ->(value) { ["release_year::integer = ?", value] }],
       [:description, ->(value) { ["description ILIKE ?", "%#{value}%"] }],
       [:listed_in, ->(value) { ["listed_in ILIKE ?", "%#{value}%"] }],
       [:cast, ->(value) { ["cast ILIKE ?", "%#{value}%"] }],
