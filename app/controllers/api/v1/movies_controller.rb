@@ -11,6 +11,7 @@ module Api
       def index
         @movies = Movie.all
         @movies = Movie.filter(params, @movies) if filter_params_present?
+        @movies = @movies.distinct
       end
 
       # GET /movies/1
