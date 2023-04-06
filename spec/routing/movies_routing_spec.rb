@@ -1,30 +1,29 @@
 require "rails_helper"
 
-RSpec.describe MoviesController, type: :routing do
+RSpec.describe Api::V1::MoviesController, type: :routing do
   describe "routing" do
     it "routes to #index" do
-      expect(get: "/movies").to route_to("movies#index")
+      expect(get: "api/v1/movies").to route_to("api/v1/movies#index", format: :json)
     end
 
     it "routes to #show" do
-      expect(get: "/movies/1").to route_to("movies#show", id: "1")
+      expect(get: "api/v1/movies/1").to route_to("api/v1/movies#show", id: "1", format: :json)
     end
 
-
     it "routes to #create" do
-      expect(post: "/movies").to route_to("movies#create")
+      expect(post: "api/v1/movies").to route_to("api/v1/movies#create", format: :json)
     end
 
     it "routes to #update via PUT" do
-      expect(put: "/movies/1").to route_to("movies#update", id: "1")
+      expect(put: "api/v1/movies/1").to route_to("api/v1/movies#update", id: "1", format: :json)
     end
 
     it "routes to #update via PATCH" do
-      expect(patch: "/movies/1").to route_to("movies#update", id: "1")
+      expect(patch: "api/v1/movies/1").to route_to("api/v1/movies#update", id: "1", format: :json)
     end
 
     it "routes to #destroy" do
-      expect(delete: "/movies/1").to route_to("movies#destroy", id: "1")
+      expect(delete: "api/v1/movies/1").to route_to("api/v1/movies#destroy", id: "1", format: :json)
     end
   end
 end

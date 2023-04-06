@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :movie do
-    title { "MyString" }
-    genre { "MyString" }
-    year { "MyString" }
+    title { Faker::Lorem.word }
+    gender { "MyString" }
+    release_year { "MyString" }
     country { "MyString" }
-    published_at { "2023-04-06" }
+    date_added { "2023-04-06" }
     description { "MyText" }
   end
 end
