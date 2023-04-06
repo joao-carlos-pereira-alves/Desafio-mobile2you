@@ -12,7 +12,7 @@ services:
       - 'postgres:/var/lib/postgresql/data'
 
   backend:
-    container_name: quick-start-backend
+    container_name: mobile2you-backend
     build: 
       context: .
       dockerfile: ./Dockerfile.dev
