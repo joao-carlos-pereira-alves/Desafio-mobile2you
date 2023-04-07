@@ -32,7 +32,7 @@ A API garante que não haja duplicidade de registros ao importar filmes a partir
 
 # 3. Configuração, Execução e Testes do Projeto
 
-Para configurar, executar e testar o projeto em seu ambiente local, siga os passos abaixo:
+Para configurar e executar o projeto em seu ambiente local, siga os passos abaixo:
 
 * Clone o repositório do projeto do GitHub em seu ambiente local.
 * Certifique-se de ter o Ruby e o Rails instalados ou se preferir, utilize o Docker com o docker-compose.
