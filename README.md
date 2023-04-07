@@ -10,7 +10,7 @@ A API possui os seguintes endpoints:
 
 ```Endpoint: POST /api/v1/movies/import```
 
-Essa rota é responsável por importar os filmes a partir de um arquivo CSV. É necessário realizar uma requisição POST, anexando o arquivo CSV como payload ou como anexo na requisição.
+Essa rota é responsável por importar os filmes a partir de um arquivo CSV.
 
 # Listagem de Filmes
 
