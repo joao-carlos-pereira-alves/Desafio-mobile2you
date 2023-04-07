@@ -30,7 +30,7 @@ Os filtros podem ser combinados para refinar a busca de acordo com as necessidad
 
 A API garante que não haja duplicidade de registros ao importar filmes a partir do arquivo CSV. Caso sejam encontrados registros duplicados no arquivo, a API irá identificá-los e não irá importá-los novamente no banco de dados.
 
-# 3. Configuração, Execução e Testes do Projeto
+# 3. Configuração e Execução do Projeto
 
 Para configurar e executar o projeto em seu ambiente local, siga os passos abaixo:
 
