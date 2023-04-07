@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id movie.id
 json.title movie.title
 json.genre movie.gender

@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2023_04_06_015532) do
   enable_extension "plpgsql"
 
   create_table "movies", force: :cascade do |t|
+    t.string "show_id"
     t.string "title"
     t.string "gender"
     t.string "release_year"

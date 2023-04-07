@@ -113,26 +113,6 @@ build:
 ##  Test Pipelines  ##
 ######################
 
-# TODO: Add gem audit
-# test:bundle_audit:
-#   extends: .base
-#   allow_failure: true
-#   script:
-#     - bundle exec bundle audit check --update
-
-test:rubocop:
-  extends: .base
-  stage: test
-  cache:
-    policy: pull-push
-  script:
-    - bundle exec rubocop
-  only:
-    - merge_requests
-    - tags
-    - master
-    - dev
-
 test:rspec:
   extends: .base_db
   stage: test

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 module Api
   module V1
     # Movies Controller
     class MoviesController < ApplicationController
-      before_action :set_movie, only: %i[ show update destroy ]
+      before_action :set_movie, only: %i[show update destroy]
 
       # GET /movies
       # GET /movies.json
@@ -16,8 +18,7 @@ module Api
 
       # GET /movies/1
       # GET /movies/1.json
-      def show
-      end
+      def show; end
 
       # POST /movies
       # POST /movies.json
@@ -40,23 +41,11 @@ module Api
           render json: @movie.errors, status: :unprocessable_entity
         end
       end
-    
+
       # POST/movies/import
       # POST /movies/import.json
       def import
-        file_path =        Rails.root.join('db', 'netflix_titles.csv')
-        file =             File.read(file_path)
-        permitted_params = Movie.new.attributes.keys
-
-        Movie.transaction do
-          CSV.parse(file, headers: true) do |row|
-            movie_hash = row.to_h.slice(*permitted_params)
-            movie = Movie.new(movie_hash)
-
-            movie.save! if movie.valid?
-          end
-        end
-
+        handle_csv_transaction
         render json: { message: "#{Movie.count} movies imported successfully." }
       end
 
@@ -67,24 +56,41 @@ module Api
       end
 
       private
-        # Use callbacks to share common setup or constraints between actions.
-        def set_movie
-          @movie = Movie.find(params[:id])
-        end
 
-        # Only allow a list of trusted parameters through.
-        def movie_params
-          params.require(:movie).permit(:title, :gender, :release_year, :country, :director, 
-                                        :duration, :rating, :date_added, :description, 
-                                        :listed_in, :cast, :updated_at)
-        end
+      # Use callbacks to share common setup or constraints between actions.
+      def set_movie
+        @movie = Movie.find(params[:id])
+      end
 
-        def filter_params_present?
-          params.slice(:title, :gender, :year, :country, :director, 
-                       :duration, :rating, :published_at, :description, 
-                       :listed_in, :cast, :updated_at
-                      ).values.compact.any?
+      def handle_csv_transaction
+        file_path = Rails.root.join('db', 'netflix_titles.csv')
+        file = File.read(file_path)
+        permitted_params = Movie.new.attributes.keys
+
+        Movie.transaction do
+          CSV.parse(file, headers: true) do |row|
+            movie_hash = row.to_h.slice(*permitted_params)
+            movie = Movie.new(movie_hash)
+            exist_movie = Movie.find_by(show_id: movie.show_id)
+
+            # Make sure the show_id has already been imported before saving
+            movie.save! unless exist_movie.present? && movie.valid?
+          end
         end
+      end
+
+      # Only allow a list of trusted parameters through.
+      def movie_params
+        params.require(:movie).permit(:title, :gender, :release_year, :country, :director,
+                                      :duration, :rating, :date_added, :description,
+                                      :listed_in, :cast, :updated_at)
+      end
+
+      def filter_params_present?
+        params.slice(:title, :gender, :year, :country, :director,
+                     :duration, :rating, :published_at, :description,
+                     :listed_in, :cast, :updated_at).values.compact.any?
+      end
     end
   end
 end

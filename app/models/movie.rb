@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Movie < ApplicationRecord
   default_scope { order(release_year: :asc) }
 
@@ -11,13 +13,13 @@ class Movie < ApplicationRecord
       [:director, ->(value) { ["director ILIKE ?", "%#{value}%"] }],
       [:duration, ->(value) { ["duration ILIKE ?", "%#{value}%"] }],
       [:rating, ->(value) { ["rating ILIKE ?", "%#{value}%"] }],
-      [:published_at, ->(value) { ["date_added = ?", clean_date(value) ] }],
+      [:published_at, ->(value) { ["date_added = ?", clean_date(value)] }],
       [:year, ->(value) { ["release_year::integer = ?", value] }],
       [:description, ->(value) { ["description ILIKE ?", "%#{value}%"] }],
       [:listed_in, ->(value) { ["listed_in ILIKE ?", "%#{value}%"] }],
       [:cast, ->(value) { ["cast ILIKE ?", "%#{value}%"] }],
-      [:created_at, ->(value) { ["created_at = ?", clean_date(value) ] }],
-      [:updated_at, ->(value) { ["updated_at = ?", clean_date(value) ] }]
+      [:created_at, ->(value) { ["created_at = ?", clean_date(value)] }],
+      [:updated_at, ->(value) { ["updated_at = ?", clean_date(value)] }]
     ]
 
     filter_params.reduce(movies) do |relation, (key, filter)|
@@ -33,7 +35,7 @@ class Movie < ApplicationRecord
     if date_string =~ /^\d{2}-\d{2}-\d{4}$/
       date = Date.strptime(date_string, "%d-%m-%Y")
       date_string = date.strftime("%Y-%m-%d")
-    elsif date_string =~ /^\d{2}\/\d{2}\/\d{4}$/
+    elsif date_string =~ %r{^\d{2}/\d{2}/\d{4}$}
       date = Date.strptime(date_string, "%d/%m/%Y")
       date_string = date.strftime("%Y-%m-%d")
     else
