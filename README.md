@@ -8,19 +8,19 @@ A API possui os seguintes endpoints:
 
 # Importação de Filmes
 
-Endpoint: POST /api/v1/movies/import
+```Endpoint: POST /api/v1/movies/import```
 
 Essa rota é responsável por importar os filmes a partir de um arquivo CSV. É necessário realizar uma requisição POST, anexando o arquivo CSV como payload ou como anexo na requisição.
 
 # Listagem de Filmes
 
-Endpoint: GET /api/v1/movies
+```Endpoint: GET /api/v1/movies```
 
 A listagem de filmes pode ser filtrada por diversos critérios, como ano de lançamento, gênero, país, etc. Para isso, é possível utilizar parâmetros na URL do endpoint para aplicar os filtros desejados. Por exemplo:
 
-```GET /api/v1/movies?year=2000: Lista todos os filmes lançados no ano de 2000.
-GET /api/v1/movies?genre=Movie: Lista todos os filmes do gênero Movie.
-GET /api/v1/movies?country=Indonesia&genre=Movie: Lista todos os filmes do país "Indonesia" e do gênero "Movie".```
+```GET /api/v1/movies?year=2000: Lista todos os filmes lançados no ano de 2000.```
+```GET /api/v1/movies?genre=Movie: Lista todos os filmes do gênero Movie.```
+```GET /api/v1/movies?country=Indonesia&genre=Movie: Lista todos os filmes do país "Indonesia" e do gênero "Movie".```
 
 Os filtros podem ser combinados para refinar a busca de acordo com as necessidades do usuário.
 
