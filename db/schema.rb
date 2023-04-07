@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_211_220_140_642) do
+ActiveRecord::Schema.define(version: 2023_04_06_015532) do
+
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+  enable_extension "plpgsql"
+
+  create_table "movies", force: :cascade do |t|
+    t.string "show_id"
+    t.string "title"
+    t.string "gender"
+    t.string "release_year"
+    t.string "country"
+    t.string "director"
+    t.string "duration"
+    t.string "rating"
+    t.date "date_added"
+    t.text "description"
+    t.text "listed_in"
+    t.text "cast"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
 end

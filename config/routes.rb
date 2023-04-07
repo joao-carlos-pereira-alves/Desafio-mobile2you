@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     namespace :api do
       namespace :v1 do
         defaults format: :json do
-          # resources :rota
+          resources :movies
+          post '/movies/import', to: 'movies#import'
         end
       end
     end

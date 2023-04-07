@@ -27,7 +27,7 @@ SimpleCov.start 'rails' do
   add_filter 'extjs/'
 end
 
-ENV['RAILS_ENV'] ||= 'test'
+ENV["RAILS_ENV"] = "test"
 ENV['TZ'] ||= 'America/Sao_Paulo'
 
 RSpec.configure do |config|
