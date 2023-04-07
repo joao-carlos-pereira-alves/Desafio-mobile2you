@@ -18,9 +18,9 @@ Endpoint: GET /api/v1/movies
 
 A listagem de filmes pode ser filtrada por diversos critérios, como ano de lançamento, gênero, país, etc. Para isso, é possível utilizar parâmetros na URL do endpoint para aplicar os filtros desejados. Por exemplo:
 
-GET /api/v1/movies?year=2000: Lista todos os filmes lançados no ano de 2000.
+```GET /api/v1/movies?year=2000: Lista todos os filmes lançados no ano de 2000.
 GET /api/v1/movies?genre=Movie: Lista todos os filmes do gênero Movie.
-GET /api/v1/movies?country=Indonesia&genre=Movie: Lista todos os filmes do país "Indonesia" e do gênero "Movie".
+GET /api/v1/movies?country=Indonesia&genre=Movie: Lista todos os filmes do país "Indonesia" e do gênero "Movie".```
 
 Os filtros podem ser combinados para refinar a busca de acordo com as necessidades do usuário.
 
